@@ -1,0 +1,21 @@
+{
+  "name": "mappingarea",
+  "version": "0.0.1",
+  "authors": [
+    "Seb <s.dieunidou@lexik.fr>"
+  ],
+  "description": "Mapping-Area Website",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "web/assets/vendor/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass-official": "3.3.5",
+    "bootswatch-scss": "~3.2.0",
+    "fontawesome": "~4.4.0"
+  }
+}
