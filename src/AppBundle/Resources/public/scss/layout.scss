@@ -1,6 +1,53 @@
 body {
-  background-image: url(/bundles/app/img/background.png);
   background-repeat: repeat-x;
   background-color: #171717;
+  background-image: url(/bundles/app/img/background.png);
 }
 
+#content {
+  margin-top: 80px;
+}
+
+.page-header {
+  margin: 20px 0;
+  border-bottom: 1px solid #C2CCD1;
+}
+
+.section-header {
+  font-size: 1.3em;
+  margin: 0 0 1em;
+  padding: 0 0 0.5em;
+  border-bottom: 1px solid #C2CCD1;
+  a {
+    color: #2C3E50;
+  }
+}
+
+.well {
+  background-color: #EEEEEE;
+  border-bottom: 1px solid #d1d1d1;
+  padding: 15px;
+  p, div {
+    text-shadow: 0 1px 0 #fff;
+  }
+  a, button {
+    text-shadow: none;
+  }
+}
+.help-block {
+  font-size: 14px;
+}
+
+.form-control {
+  padding: 5px;
+  height: 35px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+#nav-socials {
+  margin-top: 10px;
+  margin-right: 20px;
+}
