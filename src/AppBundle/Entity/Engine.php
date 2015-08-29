@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -49,6 +50,13 @@ class Engine
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
+    }
 
     /**
      * Get id.
@@ -128,16 +136,14 @@ class Engine
         return $this;
     }
 
+    /**
+     * to string.
+     * 
+     * @return string
+     */
     public function __toString()
     {
         return (string) $this->getName();
-    }
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -147,7 +153,7 @@ class Engine
      *
      * @return Engine
      */
-    public function addCategory(\AppBundle\Entity\Category $categories)
+    public function addCategory(Category $categories)
     {
         $this->categories[] = $categories;
 
@@ -159,7 +165,7 @@ class Engine
      *
      * @param \AppBundle\Entity\Category $categories
      */
-    public function removeCategory(\AppBundle\Entity\Category $categories)
+    public function removeCategory(Category $categories)
     {
         $this->categories->removeElement($categories);
     }

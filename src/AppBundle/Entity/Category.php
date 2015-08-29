@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Category.
@@ -38,6 +39,8 @@ class Category
 
     /**
      * @var string
+     *
+     * @Gedmo\Slug(fields={"name"})
      *
      * @ORM\Column(name="slug", type="string", length=255)
      */
@@ -123,5 +126,15 @@ class Category
     public function getEngine()
     {
         return $this->engine;
+    }
+
+    /**
+     * to string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getName();
     }
 }

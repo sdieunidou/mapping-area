@@ -32,14 +32,14 @@ class Author
     /**
      * @var string
      *
+     * @Gedmo\Slug(fields={"name"})
+     *
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
 
     /**
      * @var int
-     *
-     * @Gedmo\Slug(fields={"name"})
      *
      * @ORM\Column(name="user_id", type="integer")
      */
@@ -183,5 +183,15 @@ class Author
         $this->slug = $slug;
 
         return $this;
+    }
+
+    /**
+     * to string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getName();
     }
 }
