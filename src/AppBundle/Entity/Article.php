@@ -336,4 +336,16 @@ class Article
     {
         return $this->topicId;
     }
+
+    /**
+     * @return string
+     */
+    public function getEngineSlug()
+    {
+        if (!$this->getCategory()) {
+            return;
+        }
+
+        return $this->getCategory()->getEngine()->getSlug();
+    }
 }

@@ -1,0 +1,14 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="page-header">{{ article.category.engine.name }} <small>{{ article.category.name }}</small></h1>
+            <h2>{{ article.title }}</h2>
+
+            <div>
+                {{ article.content | raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -2,12 +2,13 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Entity\Engine;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * Class EngineManager.
+ * Class ArticleManager.
  */
-class EngineManager
+class ArticleManager
 {
     /**
      * @var EntityManagerInterface
@@ -25,23 +26,12 @@ class EngineManager
     }
 
     /**
-     * find all.
-     *
+     * @param Engine $engine
      * @return array
      */
-    public function findAll()
+    public function getByEngine(Engine $engine)
     {
-        return $this->getRepository()->findAll();
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return Engine
-     */
-    public function getOneById($id)
-    {
-        return $this->getRepository()->findOneById($id);
+        return $this->getRepository()->getByEngine($engine);
     }
 
     /**
@@ -61,6 +51,6 @@ class EngineManager
      */
     public function getRepository()
     {
-        return $this->em->getRepository('AppBundle:Engine');
+        return $this->em->getRepository('AppBundle:Article');
     }
 }

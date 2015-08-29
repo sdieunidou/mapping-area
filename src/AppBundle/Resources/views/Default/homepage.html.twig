@@ -16,7 +16,7 @@
         {% for engine in engines %}
             <div class="col-md-3">
                 <div class="well">
-                    <h2 class="page-header">{{ engine.name }}</h2>
+                    <h2 class="page-header"><a href="{{ path('engine_list', {'slug': engine.slug}) }}" title="{{ engine.name }}">{{ engine.name }}</a></h2>
                     <p>{{ engine.description }}</p>
                 </div>
             </div>

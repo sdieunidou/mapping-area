@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ engine.name }}</h1>
+
+            <div class="alert alert-info">
+                <p>{{ list|length }} tutoriels disponibles.</p>
+            </div>
+            <ul>
+                {% for article in list %}
+                    <li><a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="{{ article.title }}">{{ article.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

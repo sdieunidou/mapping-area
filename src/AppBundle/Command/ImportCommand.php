@@ -4,6 +4,8 @@ namespace AppBundle\Command;
 
 use AppBundle\Entity\Article;
 use AppBundle\Entity\Author;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Engine;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -93,12 +95,29 @@ class ImportCommand extends ContainerAwareCommand
                 $article->setTitle($topic['title']);
                 $article->setTopicId($topic['topicId']);
                 $article->setAuthor($this->resolveAuthor($topic));
+                $article->setCategory($this->resolveCategory($engine['engine']));
 
                 $this->em->persist($article);
             }
         }
 
         $this->em->flush();
+    }
+
+    private function resolveCategory(Engine $engine)
+    {
+        if ($engine->getCategories()->first()) {
+            return $engine->getCategories()->first();
+        }
+
+        $category = new Category();
+        $category->setName('unclassed');
+        $category->setEngine($engine);
+        $engine->addCategory($category);
+
+        $this->em->persist($category);
+
+        return $category;
     }
 
     private function resolveAuthor(array $topic)
@@ -111,8 +130,8 @@ class ImportCommand extends ContainerAwareCommand
         $author->setName($topic['user']);
         $author->setUserId($topic['userId']);
 
-        $this->users[$topic['userId']] = $author;
         $this->em->persist($author);
+        $this->users[$topic['userId']] = $author;
 
         return $author;
     }
@@ -127,7 +146,7 @@ class ImportCommand extends ContainerAwareCommand
     private function getTopicContent($topicUrl)
     {
         $crawler = new Crawler(file_get_contents($topicUrl), $topicUrl);
-        $topic = $crawler->filter('.post .postbody')->each(function ($node, $i) {
+        $topic = $crawler->filter('.post .postbody .content')->each(function ($node, $i) {
             return trim($node->html());
         });
         return $topic[0];
