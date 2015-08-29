@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * Author
+ * Author.
  *
  * @ORM\Table(name="author")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AuthorRepository")
@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Author
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -37,7 +37,7 @@ class Author
     private $slug;
 
     /**
-     * @var integer
+     * @var int
      *
      * @Gedmo\Slug(fields={"name"})
      *
@@ -53,17 +53,16 @@ class Author
     private $registerAt;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="count_messages", type="integer")
      */
     private $countMessages;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -71,9 +70,10 @@ class Author
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Author
      */
     public function setName($name)
@@ -84,9 +84,9 @@ class Author
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -94,9 +94,10 @@ class Author
     }
 
     /**
-     * Set userId
+     * Set userId.
      *
-     * @param integer $userId
+     * @param int $userId
+     *
      * @return Author
      */
     public function setUserId($userId)
@@ -107,9 +108,9 @@ class Author
     }
 
     /**
-     * Get userId
+     * Get userId.
      *
-     * @return integer 
+     * @return int
      */
     public function getUserId()
     {
@@ -117,9 +118,10 @@ class Author
     }
 
     /**
-     * Set registerAt
+     * Set registerAt.
      *
      * @param \DateTime $registerAt
+     *
      * @return Author
      */
     public function setRegisterAt($registerAt)
@@ -130,9 +132,9 @@ class Author
     }
 
     /**
-     * Get registerAt
+     * Get registerAt.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getRegisterAt()
     {
@@ -140,9 +142,10 @@ class Author
     }
 
     /**
-     * Set countMessages
+     * Set countMessages.
      *
-     * @param integer $countMessages
+     * @param int $countMessages
+     *
      * @return Author
      */
     public function setCountMessages($countMessages)
@@ -153,9 +156,9 @@ class Author
     }
 
     /**
-     * Get countMessages
+     * Get countMessages.
      *
-     * @return integer 
+     * @return int
      */
     public function getCountMessages()
     {
@@ -172,6 +175,7 @@ class Author
 
     /**
      * @return Author
+     *
      * @param string $slug
      */
     public function setSlug($slug)

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Category
+ * Category.
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Category
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -30,7 +30,7 @@ class Category
 
     /**
      * @var Engine
-    /**
+     /**
      * @ORM\ManyToOne(targetEntity="Engine")
      * @ORM\JoinColumn(name="engine_id", referencedColumnName="id")
      */
@@ -43,11 +43,10 @@ class Category
      */
     private $slug;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -55,9 +54,10 @@ class Category
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Category
      */
     public function setName($name)
@@ -68,9 +68,9 @@ class Category
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -78,9 +78,10 @@ class Category
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
+     *
      * @return Category
      */
     public function setSlug($slug)
@@ -91,9 +92,9 @@ class Category
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -101,9 +102,10 @@ class Category
     }
 
     /**
-     * Set engine
+     * Set engine.
      *
      * @param \AppBundle\Entity\Engine $engine
+     *
      * @return Category
      */
     public function setEngine(\AppBundle\Entity\Engine $engine = null)
@@ -114,9 +116,9 @@ class Category
     }
 
     /**
-     * Get engine
+     * Get engine.
      *
-     * @return \AppBundle\Entity\Engine 
+     * @return \AppBundle\Entity\Engine
      */
     public function getEngine()
     {

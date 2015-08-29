@@ -6,7 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Engine
+ * Engine.
  *
  * @ORM\Table(name="engine")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\EngineRepository")
@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Engine
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -36,7 +36,6 @@ class Engine
      */
     private $description;
 
-
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="engine")
      **/
@@ -51,11 +50,10 @@ class Engine
      */
     private $slug;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -63,9 +61,10 @@ class Engine
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Engine
      */
     public function setName($name)
@@ -76,9 +75,9 @@ class Engine
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -86,9 +85,10 @@ class Engine
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
+     *
      * @return Engine
      */
     public function setSlug($slug)
@@ -99,9 +99,9 @@ class Engine
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -118,6 +118,7 @@ class Engine
 
     /**
      * @param string $description
+     *
      * @return Engine
      */
     public function setDescription($description)
@@ -132,7 +133,7 @@ class Engine
         return (string) $this->getName();
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -140,9 +141,10 @@ class Engine
     }
 
     /**
-     * Add categories
+     * Add categories.
      *
      * @param \AppBundle\Entity\Category $categories
+     *
      * @return Engine
      */
     public function addCategory(\AppBundle\Entity\Category $categories)
@@ -153,7 +155,7 @@ class Engine
     }
 
     /**
-     * Remove categories
+     * Remove categories.
      *
      * @param \AppBundle\Entity\Category $categories
      */
@@ -163,9 +165,9 @@ class Engine
     }
 
     /**
-     * Get categories
+     * Get categories.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCategories()
     {
