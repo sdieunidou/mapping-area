@@ -41,14 +41,66 @@ class ImportCommand extends ContainerAwareCommand
 
         // get engines
         $engines = $this->getEngines($crawler);
-        foreach ($engines as $engine) {
+        foreach ($engines as &$engine) {
             $output->writeln(sprintf('<info>Retrieve contents from engine %s</info>', $engine['name']));
 
             $url = sprintf('http://www.modding-area.com/forum%s', mb_substr($engine['href'], 1));
             $crawler = new Crawler(file_get_contents($url), $url);
+
+            $pagination = $crawler->filter('.topic-actions .pagination > span');
+            $pages = $pagination->filter('a')->each(function ($node, $i) {
+                return $node->attr('href');
+            });
+
+            $pages[] = $engine['href'];
+            $pages = array_unique($pages);
+
+            $topics = [];
+            foreach ($pages as $page) {
+                $pageUrl = sprintf('http://www.modding-area.com/forum%s', mb_substr($page, 1));
+                $topics = array_merge($topics, $this->getTopics($pageUrl));
+            }
+
+            $engine['topics'] = $topics;
         }
     }
 
+    /**
+     * Get topics.
+     * 
+     * @param $pageUrl
+     *
+     * @return array
+     */
+    private function getTopics($pageUrl)
+    {
+        $crawler = new Crawler(file_get_contents($pageUrl), $pageUrl);
+        $topics = $crawler->filter('ul.topiclist');
+        if (!$topics->count()) {
+            return [];
+        }
+        $item = $topics->filter('li')->each(function ($node, $i) {
+            if (!$node->filter('.topictitle')->count()) {
+                return;
+            }
+
+            $dateXpath = $node->filterXPath('//dl/dt/text()[3]');
+            $date = null;
+            if ($dateXpath->count()) {
+                $date = str_replace(',', '', mb_substr(trim($dateXpath->text()), 3));
+            }
+
+            return [
+                'title' => $node->filter('.topictitle')->text(),
+                'topicUrl' => $node->filter('.topictitle')->attr('href'),
+                'user' => $node->filter('a:nth-child(3)')->text(),
+                'userId' => $node->filter('a:nth-child(3)')->attr('href'),
+                'date' => $date,
+            ];
+        });
+
+        return $item;
+    }
     /**
      * Get engines.
      * 
