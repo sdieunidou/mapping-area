@@ -92,7 +92,7 @@ class ImportCommand extends ContainerAwareCommand
                 $article = new Article();
                 $article->setContent($topic['content']);
                 //$article->setCreatedAt(new \DateTime($topic['date']));
-                $article->setTitle($topic['title']);
+                $article->setTitle(trim($topic['title']));
                 $article->setTopicId($topic['topicId']);
                 $article->setAuthor($this->resolveAuthor($topic));
                 $article->setCategory($this->resolveCategory($engine['engine']));
