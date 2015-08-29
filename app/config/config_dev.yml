@@ -47,3 +47,6 @@ assetic:
 swiftmailer:
     delivery_address: %admin_email%
     disable_delivery: true
+
+hautelook_alice:
+    locale: fr
