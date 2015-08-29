@@ -230,6 +230,10 @@ class ImportCommand extends ContainerAwareCommand
         });
 
         foreach ($links as &$link) {
+            if ($link['name'] === 'Cry Engine 2 et 3') {
+                continue;
+            }
+
             $engineId = $this->getEngineId($link['name']);
             $link['engine'] = $this->engineManager->getOneById($engineId);
         }
@@ -257,6 +261,6 @@ class ImportCommand extends ContainerAwareCommand
                 return 2;
         }
 
-        return;
+        throw new \Exception('Cant resolve engineId from engineName');
     }
 }
