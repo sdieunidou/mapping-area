@@ -11,18 +11,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-9">
-                    {% if article.author.avatar %}
-                        <div class="row">
-                            <div class="col-md-10">
-                                <h1>{{ article.category.engine.name }} <small>{{ article.category.name }}</small></h1>
-                            </div>
-                            <div class="col-md-2 text-right">
-                                <img src="{{ article.author.avatar }}" alt="{{ article.author.name }}" class="img-responsive" />
-                            </div>
-                        </div>
-                    {% else %}
-                        <h1>{{ article.category.engine.name }} <small>{{ article.category.name }}</small></h1>
-                    {% endif %}
+                    <h1>{{ article.category.engine.name }} <small>{{ article.category.name }}</small></h1>
                 </div>
                 <div class="col-md-3">
                     <div class="text-right" id="article-show-socials">
@@ -35,8 +24,17 @@
                 </div>
             </div>
 
-            <div class="well">
-                <h2 id="article-show-title">{{ article.title }} <small>par {{ article.author.name }}</small></h2>
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="well">
+                        <h2 id="article-show-title">{{ article.title }} <small>par {{ article.author.name }}</small></h2>
+                    </div>
+                </div>
+                <div class="col-md-2 text-right">
+                    {% if article.author.avatar %}
+                        <img src="{{ article.author.avatar }}" alt="{{ article.author.name }}" style="max-height: 65px;" />
+                    {% endif %}
+                </div>
             </div>
 
             <div class="well" id="article-content">
@@ -49,6 +47,12 @@
 
 {% block javascripts %}
     {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#article-content img').addClass('img-thumbnail');
+        });
+    </script>
+
     <script type="text/javascript">var switchTo5x=true;</script>
     <script type="text/javascript" src="https://ws.sharethis.com/button/buttons.js"></script>
     <script type="text/javascript">stLight.options({publisher: "aa2e260c-bba7-47f0-8999-d175f32c2252", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
