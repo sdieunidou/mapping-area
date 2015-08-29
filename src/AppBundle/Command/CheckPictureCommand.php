@@ -77,15 +77,17 @@ class CheckPictureCommand extends ContainerAwareCommand
      */
     private function hasPictureError($url)
     {
+        $url = str_replace('http://mapping-area.com', 'http://www.modding-area.com', $url);
+        $url = str_replace('http://www.mapping-area.com', 'http://www.modding-area.com', $url);
+
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 10);
         curl_setopt($ch, CURLOPT_TIMEOUT, 15);
         curl_setopt($ch, CURLOPT_HEADER, true);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         curl_exec($ch);
-
         if(!curl_errno($ch)) {
             $info = curl_getinfo($ch);
             return $info['http_code'] !== 200;

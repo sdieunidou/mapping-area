@@ -25,10 +25,10 @@
             </div>
 
             <div class="well">
-                <h2>{{ article.title }} <small>par {{ article.author.name }}</small></h2>
+                <h2 id="article-show-title">{{ article.title }} <small>par {{ article.author.name }}</small></h2>
             </div>
 
-            <div id="article-content">
+            <div class="well" id="article-content">
                 {{ article.content | raw }}
             </div>
             <div class="clearfix"></div>
