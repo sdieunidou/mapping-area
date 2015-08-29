@@ -92,6 +92,29 @@ class CheckPictureCommand extends ContainerAwareCommand
             return false;
         }
 
+        if (false !== mb_strpos($url, 'nyko18.free.fr')) {
+            return false;
+        }
+
+        if (false !== mb_strpos($url, 'perso.wanadoo.fr/remi3d/')) {
+            return false;
+        }
+
+        if (false !== mb_strpos($url, 'perso.wanadoo.fr/gargamel90/')) {
+            return false;
+        }
+
+        if (false !== mb_strpos($url, 'perso.wanadoo.fr/tutodmcconfigure1/')) {
+            return false;
+        }
+
+        if (false !== mb_strpos($url, 'commentcamarche.net')) {
+            return false;
+        }
+        if (false !== mb_strpos($url, 'perso.wanadoo.fr/manu-site/')) {
+            return false;
+        }
+        
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 10);
         curl_setopt($ch, CURLOPT_TIMEOUT, 15);
