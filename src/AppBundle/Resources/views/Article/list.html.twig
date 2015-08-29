@@ -1,5 +1,11 @@
 {% extends '::base.html.twig' %}
 
+{% block meta_title %}Mapping {{ engine.name }}{% endblock %}
+{% block og_title %}Mapping {{ engine.name }}{% endblock %}
+
+{% block meta_description %}{{ engine.description }}{% endblock %}
+{% block og_description %}{{ engine.description }}{% endblock %}
+
 {% block content %}
     <div class="row">
         <div class="col-md-12">
