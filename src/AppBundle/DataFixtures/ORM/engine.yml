@@ -11,7 +11,3 @@ AppBundle\Entity\Engine:
         name: UDK
         slug: udk
         description: Retrouvez l'ensemble de nos tutoriels visant à vous apprendre à découvrir, utiliser et maitriser les outils et possibilitées offertes par le moteur Unreal Engine 3.
-    engine_4:
-        name: Cry Engine v2/v3
-        slug: cry-engine
-        description: Retrouvez notre l'ensemble des tutoriels visant à apprendre à utiliser, maitriser et découvrir les outils et possibilitées offertes par le moteur Cry Engine v2 et v3.

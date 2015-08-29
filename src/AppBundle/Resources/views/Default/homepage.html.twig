@@ -14,7 +14,7 @@
     </div>
     <div class="row" id="home-list-engines">
         {% for engine in engines %}
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="well">
                     <h2 class="page-header"><a href="{{ path('engine_list', {'slug': engine.slug}) }}" title="{{ engine.name }}">{{ engine.name }}</a></h2>
                     <p>{{ engine.description }}</p>
