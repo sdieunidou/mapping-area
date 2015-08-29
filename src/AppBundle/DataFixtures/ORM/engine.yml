@@ -1,0 +1,17 @@
+AppBundle\Entity\Engine:
+    engine_1:
+        name: Source Engine
+        slug: source-engine
+        description: Vous avez toujours eu l'envie secrète de créer votre propre carte pour Counter-Strike: Global Offensive ? Garry's Mod ? Team Fortress 2 ? Vous êtes au bon endroit !
+    engine_2:
+        name: GoldSrc
+        slug: goldsrc
+        description: Envie de créer une map pour le moteur Half-Life 1 ? Notre communauté à écrit au fil des années de nombreux tutoriels pour vous aider à concevoir la carte de vos rêves !
+    engine_3:
+        name: UDK
+        slug: udk
+        description: Retrouvez l'ensemble de nos tutoriels visant à vous apprendre à découvrir, utiliser et maitriser les outils et possibilitées offertes par le moteur Unreal Engine 3.
+    engine_4:
+        name: Cry Engine v2/v3
+        slug: cry-engine
+        description: Retrouvez notre l'ensemble des tutoriels visant à apprendre à utiliser, maitriser et découvrir les outils et possibilitées offertes par le moteur Cry Engine v2 et v3.
