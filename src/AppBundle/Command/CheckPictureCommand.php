@@ -36,6 +36,8 @@ class CheckPictureCommand extends ContainerAwareCommand
         foreach ($articles as $article) {
             $output->writeln(sprintf('<info>Check article "%s"</info>', $article->getTitle()));
 
+            $article->setContent(str_replace('./images/smilies/', 'http://www.modding-area.com/forum/images/smilies/', $article->setContent()));
+
             $crawler = new Crawler($article->getContent());
             $imgs = $crawler->filter('img')->each(function($node, $i) {
                 $src = $node->attr('src');
@@ -45,22 +47,19 @@ class CheckPictureCommand extends ContainerAwareCommand
                 return $src;
             });
 
-            if (!count($imgs)) {
-                continue;
-            }
-
             $hasError = false;
             foreach ($imgs as $img) {
                 if (false !== mb_strpos($img, 'images/smilies')) {
                     continue;
                 }
 
-                if ($statusCode = $this->hasPictureError($img)) {
+                if ($this->hasPictureError($img)) {
                     $hasError = true;
                 }
             }
+
             if ($hasError) {
-                $output->writeln(sprintf('<error>Error: status code %d for picture "%s"</error>', $statusCode, $img));
+                $output->writeln(sprintf('<error>Errors detected</error>'));
                 $article->setPublished(false);
                 $errors++;
             } else {

@@ -14,7 +14,18 @@ class SeoExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('get_seo_description', array($this, 'getSeoDescription')),
+            new \Twig_SimpleFunction('get_description', array($this, 'getDescription')),
         );
+    }
+
+    /**
+     * @param string $description
+     *
+     * @return string
+     */
+    public function getDescription($description)
+    {
+        return mb_substr(trim($description), 0, 255);
     }
 
     /**

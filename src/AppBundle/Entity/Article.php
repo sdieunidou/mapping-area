@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\DomCrawler\Crawler;
 
 /**
  * Article.
@@ -347,5 +348,32 @@ class Article
         }
 
         return $this->getCategory()->getEngine()->getSlug();
+    }
+
+    /**
+     * get first picture
+     *
+     * @return string|null
+     */
+    public function getFirstPicture()
+    {
+        $crawler = new Crawler($this->getContent());
+        $imgs = $crawler->filter('img')->each(function($node, $i) {
+            return $node->attr('src');
+        });
+
+        if (!count($imgs)) {
+            return;
+        }
+
+        foreach ($imgs as $img) {
+            if (false !== mb_strpos($img, 'images/smilies/')) {
+                continue;
+            }
+
+            return $img;
+        }
+
+        return;
     }
 }
