@@ -80,6 +80,14 @@ class CheckPictureCommand extends ContainerAwareCommand
         $url = str_replace('http://mapping-area.com', 'http://www.modding-area.com', $url);
         $url = str_replace('http://www.mapping-area.com', 'http://www.modding-area.com', $url);
 
+        if (false !== mb_strpos($url, 'http://www.siteduzero.com/uploads')) {
+            return false;
+        }
+
+        if (false !== mb_strpos($url, 'noelshack.com')) {
+            return false;
+        }
+
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 10);
         curl_setopt($ch, CURLOPT_TIMEOUT, 15);
