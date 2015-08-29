@@ -90,9 +90,15 @@ class ImportCommand extends ContainerAwareCommand
                 $date = str_replace(',', '', mb_substr(trim($dateXpath->text()), 3));
             }
 
+            preg_match('/t=([0-9]+)/', $node->filter('.topictitle')->attr('href'), $matches);
+            if (empty($matches[1])) {
+                throw new \Exception('topicId is missing');
+            }
+
             return [
                 'title' => $node->filter('.topictitle')->text(),
                 'topicUrl' => $node->filter('.topictitle')->attr('href'),
+                'topicId' => $matches[1],
                 'user' => $node->filter('a:nth-child(3)')->text(),
                 'userId' => $node->filter('a:nth-child(3)')->attr('href'),
                 'date' => $date,
