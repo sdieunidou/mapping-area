@@ -49,22 +49,25 @@ class CheckPictureCommand extends ContainerAwareCommand
                 continue;
             }
 
+            $hasError = false;
             foreach ($imgs as $img) {
                 if (false !== mb_strpos($img, 'images/smilies')) {
-                    //continue;
+                    continue;
                 }
 
                 if ($statusCode = $this->hasPictureError($img)) {
-                    $output->writeln(sprintf('<error>Error: status code %d for picture "%s"</error>', $statusCode, $img));
-                    $article->setPublished(false);
-                    $errors++;
-                } else {
-                    $article->setPublished(true);
+                    $hasError = true;
                 }
+            }
+            if ($hasError) {
+                $output->writeln(sprintf('<error>Error: status code %d for picture "%s"</error>', $statusCode, $img));
+                $article->setPublished(false);
+                $errors++;
+            } else {
+                $article->setPublished(true);
             }
         }
 
-        $output->writeln('<info>Update database</info>');
         $em->flush();
         $output->writeln(sprintf('<info>%d articles with img errors</info>', $errors));
     }
