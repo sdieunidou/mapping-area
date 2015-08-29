@@ -182,8 +182,14 @@ class ImportCommand extends ContainerAwareCommand
                 throw new \Exception('topicId is missing');
             }
 
+            $title = $node->filter('.topictitle')->text();
+            $title = str_replace([
+                '[TUTO]',
+                '[tuto]',
+            ], '', $title);
+
             return [
-                'title' => $node->filter('.topictitle')->text(),
+                'title' => $title,
                 'topicUrl' => $node->filter('.topictitle')->attr('href'),
                 'topicId' => $matches[1],
                 'user' => $node->filter('a:nth-child(3)')->text(),
