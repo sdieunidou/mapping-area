@@ -85,7 +85,7 @@ class ImportCommand extends ContainerAwareCommand
 
         foreach ($engines as $key => $engine) {
             foreach ($engine['topics'] as $key2 => $topic) {
-                if (empty($topic)) {
+                if (empty($topic) || (int) $topic['topicId'] === 24314) {
                     continue;
                 }
 
