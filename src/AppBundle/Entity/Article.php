@@ -46,6 +46,13 @@ class Article
     private $content;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="topic_id", type="integer")
+     */
+    private $topicId;
+
+    /**
      * @var Author
      /**
      * @ORM\ManyToOne(targetEntity="Author")
@@ -304,5 +311,29 @@ class Article
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set topicId.
+     *
+     * @param int $topicId
+     *
+     * @return Article
+     */
+    public function setTopicId($topicId)
+    {
+        $this->topicId = $topicId;
+
+        return $this;
+    }
+
+    /**
+     * Get topicId.
+     *
+     * @return int
+     */
+    public function getTopicId()
+    {
+        return $this->topicId;
     }
 }
