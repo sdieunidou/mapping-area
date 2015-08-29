@@ -35,6 +35,16 @@ class EngineManager
     }
 
     /**
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function getOneById($id)
+    {
+        return $this->getRepository()->findOneById($id);
+    }
+
+    /**
      * Get repository.
      *
      * @return \Doctrine\Common\Persistence\ObjectRepository
