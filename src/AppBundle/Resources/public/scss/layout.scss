@@ -6,41 +6,16 @@ body {
 
 #content {
   margin-top: 80px;
+  margin-bottom: 20px;
 }
 
 .page-header {
-  margin: 20px 0;
+  margin-top: 0px;
   border-bottom: 1px solid #C2CCD1;
 }
 
-.section-header {
-  font-size: 1.3em;
-  margin: 0 0 1em;
-  padding: 0 0 0.5em;
-  border-bottom: 1px solid #C2CCD1;
-  a {
-    color: #2C3E50;
-  }
-}
-
-.well {
-  background-color: #EEEEEE;
-  border-bottom: 1px solid #d1d1d1;
-  padding: 15px;
-  p, div {
-    text-shadow: 0 1px 0 #fff;
-  }
-  a, button {
-    text-shadow: none;
-  }
-}
 .help-block {
   font-size: 14px;
-}
-
-.form-control {
-  padding: 5px;
-  height: 35px;
 }
 
 .uppercase {
@@ -50,4 +25,29 @@ body {
 #nav-socials {
   margin-top: 10px;
   margin-right: 20px;
+}
+
+#home-list-engines {
+  h1, h2, h3 {
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+}
+
+.container .jumbotron,
+.container-fluid .jumbotron {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  h1 {
+    font-size: 45px;
+  }
+}
+
+#footer {
+  .well {
+    margin-bottom: 0px;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+  }
 }
