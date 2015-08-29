@@ -36,7 +36,7 @@ class CheckPictureCommand extends ContainerAwareCommand
         foreach ($articles as $article) {
             $output->writeln(sprintf('<info>Check article "%s"</info>', $article->getTitle()));
 
-            $article->setContent(str_replace('./images/smilies/', 'http://www.modding-area.com/forum/images/smilies/', $article->setContent()));
+            $article->setContent(str_replace('./images/smilies/', 'http://www.modding-area.com/forum/images/smilies/', $article->getContent()));
 
             $crawler = new Crawler($article->getContent());
             $imgs = $crawler->filter('img')->each(function($node, $i) {
@@ -77,19 +77,23 @@ class CheckPictureCommand extends ContainerAwareCommand
      */
     private function hasPictureError($url)
     {
-        stream_context_set_default(
-            array(
-                'http' => array(
-                    'timeout' => 15,
-                    'method' => 'HEAD'
-                )
-            )
-        );
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
-        $statusCode = (int) substr(@get_headers($url)[0], 9, 3);
-        return in_array($statusCode, [
-            200,
-            301
-        ]) ? false : $statusCode;
+        curl_exec($ch);
+
+        if(!curl_errno($ch)) {
+            $info = curl_getinfo($ch);
+            return $info['http_code'] !== 200;
+        } else {
+            return true;
+        }
+
+        curl_close( $ch );
+        return true;
     }
 }

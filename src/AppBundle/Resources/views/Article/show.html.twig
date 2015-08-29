@@ -9,8 +9,24 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <h1>{{ article.category.engine.name }} <small>{{ article.category.name }}</small></h1>
-            <h2 class="page-header">{{ article.title }} <small>par {{ article.author.name }}</small></h2>
+            <div class="row">
+                <div class="col-md-9">
+                    <h1>{{ article.category.engine.name }} <small>{{ article.category.name }}</small></h1>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-right" id="article-show-socials">
+                        <span class='st_facebook_large' displayText='Facebook'></span>
+                        <span class='st_twitter_large' displayText='Tweet'></span>
+                        <span class='st_googleplus_large' displayText='Google +'></span>
+                        <span class='st_linkedin_large' displayText='LinkedIn'></span>
+                        <span class='st_email_large' displayText='Email'></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <h2>{{ article.title }} <small>par {{ article.author.name }}</small></h2>
+            </div>
 
             <div id="article-content">
                 {{ article.content | raw }}
