@@ -12,3 +12,5 @@
 /web/assets/*
 /node_modules/
 .php_cs.cache
+npm-debug.log
+.idea/
