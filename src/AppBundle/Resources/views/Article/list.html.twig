@@ -27,9 +27,9 @@
                             {% else %}
                                 <div class="col-md-12">
                             {% endif %}
-                                <h2 class="page-header">
+                                <h2 class="page-header" style="font-size: 20px;">
                                     <a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="{{ article.title }}">
-                                        {{ article.title }}
+                                        {{ article.title | capitalize }}
                                     </a>
                                 </h2>
                                 <div>

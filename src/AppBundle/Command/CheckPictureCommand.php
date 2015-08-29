@@ -37,6 +37,9 @@ class CheckPictureCommand extends ContainerAwareCommand
             $output->writeln(sprintf('<info>Check article "%s"</info>', $article->getTitle()));
 
             $article->setContent(str_replace('./images/smilies/', 'http://www.modding-area.com/forum/images/smilies/', $article->getContent()));
+            $article->setContent(str_replace('http://www.mapping-area.com', 'http://www.modding-area.com', $article->getContent()));
+            $article->setContent(str_replace('http://mapping-area.com', 'http://www.modding-area.com', $article->getContent()));
+            $article->setContent(str_replace('http://modding-area.com', 'http://www.modding-area.com', $article->getContent()));
 
             $crawler = new Crawler($article->getContent());
             $imgs = $crawler->filter('img')->each(function($node, $i) {

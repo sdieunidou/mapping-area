@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
-{% block meta_title %}{{ article.title }} - {{ article.category.engine.name }}{% endblock %}
-{% block og_title %}{{ article.title }} - {{ article.category.engine.name }}{% endblock %}
+{% block meta_title %}{{ article.title | capitalize }} - {{ article.category.engine.name }}{% endblock %}
+{% block og_title %}{{ article.title | capitalize }} - {{ article.category.engine.name }}{% endblock %}
 
 {% block meta_description %}{{ get_seo_description(article.content) }}{% endblock %}
 {% block og_description %}{{ get_seo_description(article.content) }}{% endblock %}
@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-md-10">
                     <div class="well">
-                        <h2 id="article-show-title">{{ article.title }} <small>par {{ article.author.name }}</small></h2>
+                        <h2 id="article-show-title">{{ article.title | capitalize }} <small>par {{ article.author.name }}</small></h2>
                     </div>
                 </div>
                 <div class="col-md-2 text-right">
