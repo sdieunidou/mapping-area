@@ -51,10 +51,6 @@ class ImportCommand extends ContainerAwareCommand
         // get engines
         $engines = $this->getEngines($crawler);
         foreach ($engines as $key => $engine) {
-            if ($engine['name'] === 'Cry Engine 2 et 3') {
-                continue;
-            }
-
             $output->writeln(sprintf('<info>Retrieve contents from engine %s</info>', $engine['name']));
 
             $url = sprintf('http://www.modding-area.com/forum%s', mb_substr($engine['href'], 1));
@@ -229,11 +225,9 @@ class ImportCommand extends ContainerAwareCommand
             ];
         });
 
-        foreach ($links as &$link) {
-            if ($link['name'] === 'Cry Engine 2 et 3') {
-                continue;
-            }
+        unset($links[3]);
 
+        foreach ($links as &$link) {
             $engineId = $this->getEngineId($link['name']);
             $link['engine'] = $this->engineManager->getOneById($engineId);
         }
