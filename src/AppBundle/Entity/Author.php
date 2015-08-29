@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -58,6 +59,19 @@ class Author
      * @ORM\Column(name="count_messages", type="integer")
      */
     private $countMessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="author")
+     **/
+    private $articles;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     /**
      * Get id.
@@ -193,5 +207,39 @@ class Author
     public function __toString()
     {
         return (string) $this->getName();
+    }
+
+    /**
+     * Add articles.
+     *
+     * @param \AppBundle\Entity\Article $articles
+     *
+     * @return Author
+     */
+    public function addArticle(Article $articles)
+    {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles.
+     *
+     * @param \AppBundle\Entity\Article $articles
+     */
+    public function removeArticle(Article $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticles()
+    {
+        return $this->articles;
     }
 }

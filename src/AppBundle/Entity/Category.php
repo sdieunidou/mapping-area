@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -45,6 +46,19 @@ class Category
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="category")
+     **/
+    private $articles;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
     /**
      * Get id.
@@ -111,7 +125,7 @@ class Category
      *
      * @return Category
      */
-    public function setEngine(\AppBundle\Entity\Engine $engine = null)
+    public function setEngine(Engine $engine = null)
     {
         $this->engine = $engine;
 
@@ -136,5 +150,39 @@ class Category
     public function __toString()
     {
         return (string) $this->getName();
+    }
+
+    /**
+     * Add articles.
+     *
+     * @param \AppBundle\Entity\Article $articles
+     *
+     * @return Category
+     */
+    public function addArticle(Article $articles)
+    {
+        $this->articles[] = $articles;
+
+        return $this;
+    }
+
+    /**
+     * Remove articles.
+     *
+     * @param \AppBundle\Entity\Article $articles
+     */
+    public function removeArticle(Article $articles)
+    {
+        $this->articles->removeElement($articles);
+    }
+
+    /**
+     * Get articles.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticles()
+    {
+        return $this->articles;
     }
 }

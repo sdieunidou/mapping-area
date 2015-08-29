@@ -50,6 +50,7 @@ class Engine
      * @ORM\Column(name="slug", type="string", length=255)
      */
     private $slug;
+
     /**
      * Constructor.
      */
