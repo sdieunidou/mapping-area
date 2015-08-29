@@ -58,10 +58,13 @@ class CheckPictureCommand extends ContainerAwareCommand
                     $output->writeln(sprintf('<error>Error: status code %d for picture "%s"</error>', $statusCode, $img));
                     $article->setPublished(false);
                     $errors++;
+                } else {
+                    $article->setPublished(true);
                 }
             }
         }
 
+        $output->writeln('<warning>Update database</warning>');
         $em->flush();
         $output->writeln(sprintf('<warning>%d articles with img errors</warning>', $errors));
     }

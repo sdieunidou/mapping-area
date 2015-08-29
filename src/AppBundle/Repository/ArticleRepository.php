@@ -22,6 +22,7 @@ class ArticleRepository extends EntityRepository
             ->leftJoin('a.category', 'c')
             ->leftJoin('c.engine', 'e')
             ->andWhere('e.id = :engineId')
+            ->andWhere('a.published = true')
             ->setParameter('engineId', $engine->getId())
             ->getQuery()
             ->getResult();
