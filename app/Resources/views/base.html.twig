@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
         <title>{% block title %}Mapping-Area - Apprenez le mapping en toute simplicité{% endblock %}</title>
+        <meta name="og:title" content="Mapping-Area - Apprenez le mapping en toute simplicité" />
+        <meta name="description" content="Envie d'apprendre à créer votre carte pour counter-strike: global offensive ? Team Fortress 2 ? ... etc Venez consultez les tutoriels de la communauté Mapping-Area, créée en 2002 !" />
+        <meta name="og:description" content="Envie d'apprendre à créer votre carte pour counter-strike: global offensive ? Team Fortress 2 ? ... etc Venez consultez les tutoriels de la communauté Mapping-Area, créée en 2002 !" />
+
+        <meta property="og:site_name" content="Mapping-Area" />
+        <meta property="og:url" content="http://www.mapping-are.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="fb:admins" content="715004862" />
+
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content="index, follow" />
 
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('assets/vendor/fontawesome/css/font-awesome.min.css') }}">
             <link rel="stylesheet" href="{{ asset('assets/vendor/socjs/soc.min.css') }}">
-
             {% stylesheets output='assets/style.css'
                 '@AppBundle/Resources/public/scss/bootstrap.scss'
                 '@AppBundle/Resources/public/scss/layout.scss'
@@ -17,8 +27,6 @@
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
-
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -29,70 +37,10 @@
         {% include ':layout:header.html.twig' %}
 
         <div id="content" class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="jumbotron">
-                        <h1>Bienvenue sur Mapping-Area</h1>
-                        <p>
-                            Envie d'apprendre à créer vos propres cartes pour des jeux tels que counter-strike: global offensive ? Team Fortress 2 ? ... etc
-                        </p>
-                        <p>
-                            Vous trouverez sur Mapping-Area les nombreux tutoriels archivés, écrits par la communauté au fil des 10 dernières années.</p>
-                        <p>
-                            Il ne vous reste plus qu'à lancer votre logiciel préféré, Hammer Valve Editor !
-                        </p>
-                        <p class="text-right"><a class="btn btn-info btn-lg">Accéder à tous nos tutoriels</a></p>
-                    </div>
-                    <div id="source-button" class="btn btn-primary btn-xs" style="display: none;">&lt; &gt;</div>
-                </div>
-            </div>
-            <div class="row" id="home-list-engines">
-                <div class="col-md-3">
-                    <div class="well">
-                        <h2 class="page-header">Source Engine</h2>
-                        <p>
-                            Vous avez toujours eu l'envie secrète de créer votre propre carte pour Counter-Strike: Global Offensive ? Garry's Mod ? Team Fortress 2 ? Vous êtes au bon endroit !
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="well">
-                        <h2 class="page-header">GoldSrc</h2>
-                        <p>
-                            Envie de créer une map pour le moteur Half-Life 1 ? Notre communauté à écrit au fil des années de nombreux tutoriels pour vous aider à concevoir la carte de vos rêves !
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="well">
-                        <h2 class="page-header">UDK</h2>
-                        <p>
-                            Retrouvez l'ensemble de nos tutoriels visant à vous apprendre à découvrir, utiliser et maitriser les outils et possibilitées offertes par le moteur Unreal Engine 3.
-                            <br />&nbsp;
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="well">
-                        <h2 class="page-header">Cry Engine v2 / v3</h2>
-                        <p>
-                            Retrouvez notre l'ensemble des tutoriels visant à apprendre à utiliser, maitriser et découvrir les outils et possibilitées offertes par le moteur Cry Engine v2 et v3.
-                            <br />&nbsp;
-                        </p>
-                    </div>
-                </div>
-            </div>
+            {% block content %}{% endblock %}
         </div>
 
         {% block body %}{% endblock %}
-
-        <footer id="footer">
-            <div class="container-fluid well">
-                <div class="col-md-12">
-                    © 2002-2015 - mapping-area.com
-                </div>
-            </div>
-        </footer>
 
         {% block javascripts %}
             <script src="{{ asset('assets/vendor/jquery/dist/jquery.min.js') }}"></script>
