@@ -41,7 +41,7 @@ class ImportCommand extends ContainerAwareCommand
 
         // get engines
         $engines = $this->getEngines($crawler);
-        foreach ($engines as &$engine) {
+        foreach ($engines as $key => $engine) {
             $output->writeln(sprintf('<info>Retrieve contents from engine %s</info>', $engine['name']));
 
             $url = sprintf('http://www.modding-area.com/forum%s', mb_substr($engine['href'], 1));
@@ -61,8 +61,34 @@ class ImportCommand extends ContainerAwareCommand
                 $topics = array_merge($topics, $this->getTopics($pageUrl));
             }
 
-            $engine['topics'] = $topics;
+            $engines[$key]['topics'] = $topics;
         }
+
+        foreach ($engines as $key => $engine) {
+            foreach ($engine['topics'] as $key2 => $topic) {
+                if (empty($topic)) {
+                    continue;
+                }
+                $topicUrl = sprintf('http://www.modding-area.com/forum%s', mb_substr($topic['topicUrl'], 1));
+                $engines[$key]['topics'][$key2]['content'] = $this->getTopicContent($topicUrl);
+            }
+        }
+    }
+
+    /**
+     * Get topic content.
+     *
+     * @param $topicUrl
+     *
+     * @return array
+     */
+    public function getTopicContent($topicUrl)
+    {
+        $crawler = new Crawler(file_get_contents($topicUrl), $topicUrl);
+        $topic = $crawler->filter('.post .postbody')->each(function ($node, $i) {
+            return trim($node->html());
+        });
+        return $topic;
     }
 
     /**
