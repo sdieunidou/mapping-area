@@ -64,9 +64,9 @@ class CheckPictureCommand extends ContainerAwareCommand
             }
         }
 
-        $output->writeln('<warning>Update database</warning>');
+        $output->writeln('<info>Update database</info>');
         $em->flush();
-        $output->writeln(sprintf('<warning>%d articles with img errors</warning>', $errors));
+        $output->writeln(sprintf('<info>%d articles with img errors</info>', $errors));
     }
 
     /**
