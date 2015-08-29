@@ -49,14 +49,14 @@ class Author
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="register_at", type="datetime")
+     * @ORM\Column(name="register_at", type="datetime", nullable=true)
      */
     private $registerAt;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="count_messages", type="integer")
+     * @ORM\Column(name="count_messages", type="integer", nullable=true)
      */
     private $countMessages;
 

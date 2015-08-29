@@ -2,6 +2,8 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Entity\Article;
+use AppBundle\Entity\Author;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,6 +18,10 @@ class ImportCommand extends ContainerAwareCommand
      * @var EntityManager
      */
     private $engineManager;
+
+    private $users = [];
+
+    private $em;
 
     /**
      * {@inheritdoc}
@@ -35,6 +41,7 @@ class ImportCommand extends ContainerAwareCommand
         $output->writeln('<info>Start to import old datas</info>');
 
         $this->engineManager = $this->getContainer()->get('app.engine_manager');
+        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         $startUrl = 'http://www.modding-area.com/forum/viewforum.php?f=119';
         $crawler = new Crawler(file_get_contents($startUrl), $startUrl);
@@ -73,6 +80,41 @@ class ImportCommand extends ContainerAwareCommand
                 $engines[$key]['topics'][$key2]['content'] = $this->getTopicContent($topicUrl);
             }
         }
+
+        foreach ($engines as $key => $engine) {
+            foreach ($engine['topics'] as $key2 => $topic) {
+                if (empty($topic)) {
+                    continue;
+                }
+
+                $article = new Article();
+                $article->setContent($topic['content']);
+                //$article->setCreatedAt(new \DateTime($topic['date']));
+                $article->setTitle($topic['title']);
+                $article->setTopicId($topic['topicId']);
+                $article->setAuthor($this->resolveAuthor($topic));
+
+                $this->em->persist($article);
+            }
+        }
+
+        $this->em->flush();
+    }
+
+    private function resolveAuthor(array $topic)
+    {
+        if (isset($this->users[$topic['userId']])) {
+            return $this->users[$topic['userId']];
+        }
+
+        $author = new Author();
+        $author->setName($topic['user']);
+        $author->setUserId($topic['userId']);
+
+        $this->users[$topic['userId']] = $author;
+        $this->em->persist($author);
+
+        return $author;
     }
 
     /**
@@ -82,13 +124,13 @@ class ImportCommand extends ContainerAwareCommand
      *
      * @return array
      */
-    public function getTopicContent($topicUrl)
+    private function getTopicContent($topicUrl)
     {
         $crawler = new Crawler(file_get_contents($topicUrl), $topicUrl);
         $topic = $crawler->filter('.post .postbody')->each(function ($node, $i) {
             return trim($node->html());
         });
-        return $topic;
+        return $topic[0];
     }
 
     /**
