@@ -184,8 +184,14 @@ class ImportCommand extends ContainerAwareCommand
 
             $title = $node->filter('.topictitle')->text();
             $title = str_replace([
-                '[TUTO]',
+                '[ TUTO ]',
+                '[TUTO] ',
+                '[TUTOS] ',
                 '[tuto]',
+                '[Tuto]',
+                '[TuTo]',
+                'TUTO : ',
+                '[CE] ',
             ], '', $title);
 
             return [
