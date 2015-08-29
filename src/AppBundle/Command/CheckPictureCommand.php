@@ -78,6 +78,7 @@ class CheckPictureCommand extends ContainerAwareCommand
         stream_context_set_default(
             array(
                 'http' => array(
+                    'timeout' => 15,
                     'method' => 'HEAD'
                 )
             )
