@@ -3,8 +3,8 @@
 {% block meta_title %}{{ article.title }} - {{ article.category.engine.name }}{% endblock %}
 {% block og_title %}{{ article.title }} - {{ article.category.engine.name }}{% endblock %}
 
-{% block meta_description %}{{ article.content }}{% endblock %}
-{% block og_description %}{{ article.content }}{% endblock %}
+{% block meta_description %}{{ get_seo_description(article.content) }}{% endblock %}
+{% block og_description %}{{ get_seo_description(article.content) }}{% endblock %}
 
 {% block content %}
     <div class="row">

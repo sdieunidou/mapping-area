@@ -3,8 +3,8 @@
 {% block meta_title %}Mapping {{ engine.name }}{% endblock %}
 {% block og_title %}Mapping {{ engine.name }}{% endblock %}
 
-{% block meta_description %}{{ engine.description }}{% endblock %}
-{% block og_description %}{{ engine.description }}{% endblock %}
+{% block meta_description %}{{ get_seo_description(engine.description) }}{% endblock %}
+{% block og_description %}{{ get_seo_description(engine.description) }}{% endblock %}
 
 {% block content %}
     <div class="row">

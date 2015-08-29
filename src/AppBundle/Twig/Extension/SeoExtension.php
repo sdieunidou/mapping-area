@@ -35,7 +35,8 @@ class SeoExtension extends \Twig_Extension
      */
     public function getSeoDescription($description)
     {
-        return mb_substr(strip_tags(trim($description)), 0, 255);
+        $value = strip_tags(trim($description));
+        return mb_strlen($value) <= 255 ? $value : mb_substr($value, 0, 255) . '...';
     }
 
     /**
