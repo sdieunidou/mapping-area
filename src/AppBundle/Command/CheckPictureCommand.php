@@ -88,6 +88,10 @@ class CheckPictureCommand extends ContainerAwareCommand
             return false;
         }
 
+        if (false !== mb_strpos($url, 'developer.valvesoftware.com')) {
+            return false;
+        }
+
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 10);
         curl_setopt($ch, CURLOPT_TIMEOUT, 15);
