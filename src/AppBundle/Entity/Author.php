@@ -66,6 +66,13 @@ class Author
     private $articles;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     */
+    private $avatar;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -241,5 +248,21 @@ class Author
     public function getArticles()
     {
         return $this->articles;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * @param string $avatar
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
     }
 }

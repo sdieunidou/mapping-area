@@ -79,7 +79,7 @@ class ImportCommand extends ContainerAwareCommand
                     continue;
                 }
                 $topicUrl = sprintf('http://www.modding-area.com/forum%s', mb_substr($topic['topicUrl'], 1));
-                $engines[$key]['topics'][$key2]['content'] = $this->getTopicContent($topicUrl);
+                $engines[$key]['topics'][$key2] = array_merge($this->getTopicContent($topicUrl), $engines[$key]['topics'][$key2]);
             }
         }
 
@@ -130,6 +130,10 @@ class ImportCommand extends ContainerAwareCommand
         $author->setName($topic['user']);
         $author->setUserId($topic['userId']);
 
+        if (!empty($topic['avatar'])) {
+            $author->setAvatar($topic['avatar']);
+        }
+
         $this->em->persist($author);
         $this->users[$topic['userId']] = $author;
 
@@ -146,10 +150,88 @@ class ImportCommand extends ContainerAwareCommand
     private function getTopicContent($topicUrl)
     {
         $crawler = new Crawler(file_get_contents($topicUrl), $topicUrl);
-        $topic = $crawler->filter('.post .postbody .content')->each(function ($node, $i) {
-            return trim($node->html());
+
+        // get content
+        $content = $crawler->filter('.post .postbody .content')->each(function ($node, $i) {
+            return $node->html();
         });
-        return $topic[0];
+        $content = $content[0];
+
+        // get author
+        $author = $crawler->filter('.post .postprofile > dt > a:nth-child(3)')->each(function ($node, $i) {
+            preg_match('/u=([0-9]+)/', $node->attr('href'), $matches);
+            if (empty($matches[1])) {
+                throw new \Exception('userId is missing');
+            }
+
+            return [
+                'user' => $node->text(),
+                'userId' => $matches[1]
+            ];
+        });
+
+        if (empty($author)) {
+            $author = $crawler->filter('.post .postprofile > dt > a')->each(function ($node, $i) {
+                preg_match('/u=([0-9]+)/', $node->attr('href'), $matches);
+                if (empty($matches[1])) {
+                    throw new \Exception('userId is missing');
+                }
+
+                return [
+                    'user' => $node->text(),
+                    'userId' => $matches[1]
+                ];
+            });
+        }
+        $author = $author[0];
+
+        $data = [
+            'content' => $content,
+            'user'    => $author['user'],
+            'userId'  => $author['userId'],
+        ];
+
+        // get avatar
+        $avatar = $crawler->filter('.post .postprofile > dt > a > img')->each(function ($node, $i) {
+            return $node->attr('src');
+        });
+        if (count($avatar)) {
+            $avatar = $avatar[0];
+            $author['avatar'] = $avatar;
+            $author['avatar'] = str_replace('./download', 'http://www.modding-area.com/forum/download', $author['avatar']);
+            if (!$this->hasPictureError($author['avatar'])) {
+                $data['avatar'] = $author['avatar'];
+            } else {
+                unset($author['avatar']);
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $url
+     * @return bool|int
+     */
+    private function hasPictureError($url)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT , 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_exec($ch);
+        if(!curl_errno($ch)) {
+            $info = curl_getinfo($ch);
+            return $info['http_code'] !== 200;
+        } else {
+            return true;
+        }
+
+        curl_close( $ch );
+        return true;
     }
 
     /**
@@ -198,8 +280,6 @@ class ImportCommand extends ContainerAwareCommand
                 'title' => $title,
                 'topicUrl' => $node->filter('.topictitle')->attr('href'),
                 'topicId' => $matches[1],
-                'user' => $node->filter('a:nth-child(3)')->text(),
-                'userId' => $node->filter('a:nth-child(3)')->attr('href'),
                 'date' => $date,
             ];
         });

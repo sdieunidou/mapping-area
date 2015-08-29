@@ -98,6 +98,9 @@ class CheckPictureCommand extends ContainerAwareCommand
         curl_exec($ch);
         if(!curl_errno($ch)) {
             $info = curl_getinfo($ch);
+            if ($info['http_code'] !== 200 && $info['http_code'] !== 404 && $info['http_code'] !== 502 &&  $info['http_code'] !== 403) {
+                //var_dump($url, $info['http_code']);
+            }
             return $info['http_code'] !== 200;
         } else {
             return true;

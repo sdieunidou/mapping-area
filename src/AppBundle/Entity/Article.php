@@ -362,18 +362,23 @@ class Article
             return $node->attr('src');
         });
 
-        if (!count($imgs)) {
-            return;
-        }
-
-        foreach ($imgs as $img) {
-            if (false !== mb_strpos($img, 'images/smilies/')) {
-                continue;
+        $picture = null;
+        if (count($imgs)) {
+            foreach ($imgs as $img) {
+                if (false !== mb_strpos($img, 'images/smilies/')) {
+                    continue;
+                }
+                $picture = $img;
+                break;
             }
-
-            return $img;
         }
 
-        return;
+        if (empty($picture)) {
+            if ($this->getAuthor()->getAvatar()) {
+                $picture = $this->getAuthor()->getAvatar();
+            }
+        }
+
+        return $picture;
     }
 }
