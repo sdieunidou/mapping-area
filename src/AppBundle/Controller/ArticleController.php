@@ -2,7 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\ArticleTitleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -48,6 +52,30 @@ class ArticleController extends Controller
         return $this->render('AppBundle:Article:show.html.twig', [
             'article' => $article,
         ]);
+    }
+
+    /**
+     * @Route(path="/admin/articles/{id}/edit/title", methods={"POST"}, name="article_edit_title")
+     *
+     * @param Request $request
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function editTitleAction(Request $request, $id)
+    {
+        $article = $this->get('app.article_manager')->getOneById($id);
+        if (!$article) {
+            throw $this->createNotFoundException('Article not found');
+        }
+
+        $value = $request->request->get('value');
+        if (!empty($value)) {
+            $article->setTitle($request->request->get('value'));
+            $this->get('doctrine.orm.entity_manager')->flush();
+        }
+
+        return new Response();
     }
 }
 

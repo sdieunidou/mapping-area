@@ -35,6 +35,16 @@ class ArticleManager
     }
 
     /**
+     * @param int $id
+     *
+     * @return Engine
+     */
+    public function getOneById($id)
+    {
+        return $this->getRepository()->findOneById($id);
+    }
+
+    /**
      * @param  string $slug
      *
      * @return Engine

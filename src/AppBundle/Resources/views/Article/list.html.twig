@@ -26,9 +26,12 @@
                                 <div class="col-md-10">
                             {% endif %}
                                 <h2 class="page-header" style="font-size: 20px;">
-                                    <a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="{{ article.title }}">
-                                        {{ article.title | capitalize }}
-                                    </a>
+                                    <a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="{{ article.title }}">{{ article.title | capitalize }}</a>
+                                    <small>
+                                        <span class="article-title-edit" data-url="{{ path('article_edit_title', {
+                                            'id': article.id
+                                        }) }}" data-type="text" data-pk="{{ article.id }}" data-value="{{ article.title }}"></span>
+                                    </small>
                                 </h2>
                                 <div>
                                     {{ get_seo_description(article.content)|raw }}...
@@ -50,4 +53,23 @@
             <div class="clearfix"></div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('assets/vendor/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.article-title-edit').editable({
+                url:  $(this).data('url'),
+                type: $(this).data('type'),
+                pk:  $(this).data('pk')
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('assets/vendor/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css') }}">
 {% endblock %}

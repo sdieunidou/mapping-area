@@ -21,3 +21,6 @@ parameters:
     admin_email: s.dieunidou@gmail.com
 
     assetic.sass.bin: /usr/local/bin/sass
+
+    backend_user:      admin
+    backend_pass:      "$2y$13$sIG9urN6Jx.PVez5N8/deeMpXBkVb5MraueUnvOsDBKF7mAMg4Ff2"
