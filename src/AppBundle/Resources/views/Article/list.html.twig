@@ -27,11 +27,13 @@
                             {% endif %}
                                 <h2 class="page-header" style="font-size: 20px;">
                                     <a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="{{ article.title }}">{{ article.title | capitalize }}</a>
+                                    {% if is_granted('ROLE_ADMIN') %}
                                     <small>
                                         <span class="article-title-edit" data-url="{{ path('article_edit_title', {
                                             'id': article.id
                                         }) }}" data-type="text" data-pk="{{ article.id }}" data-value="{{ article.title }}"></span>
                                     </small>
+                                    {% endif %}
                                 </h2>
                                 <div>
                                     {{ get_seo_description(article.content)|raw }}...
