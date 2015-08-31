@@ -21,9 +21,9 @@
                                 <div class="col-md-2 text-center">
                                     <img src="{{ article.firstPicture }}" alt="{{ article.title }}" style="max-width: 160px;" />
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-8">
                             {% else %}
-                                <div class="col-md-12">
+                                <div class="col-md-10">
                             {% endif %}
                                 <h2 class="page-header" style="font-size: 20px;">
                                     <a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="{{ article.title }}">
@@ -34,7 +34,9 @@
                                     {{ get_seo_description(article.content)|raw }}...
                                 </div>
                                 <div class="clearfix"></div>
-                                <div class="text-right" style="margin-top: 20px;">
+                            </div>
+                            <div class="col-md-2">
+                                <div class="text-right">
                                     <a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="voir {{ article.title }}" class="btn btn-primary btn-md">
                                         Lire le tutoriel
                                     </a>
