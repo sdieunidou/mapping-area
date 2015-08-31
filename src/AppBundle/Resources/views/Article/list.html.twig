@@ -11,9 +11,7 @@
         <div class="col-md-12">
             <h1>{{ engine.name }}</h1>
 
-            <div class="alert alert-info">
-                <p>{{ list|length }} tutoriels disponibles.</p>
-            </div>
+            <p class="text-right">{{ list|length }} tutoriels disponibles.</p>
 
             <div class="row">
                 {% for article in list %}
