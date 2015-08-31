@@ -26,7 +26,7 @@
                                 <div class="col-md-10">
                             {% endif %}
                                 <h2 class="page-header" style="font-size: 20px;">
-                                    <a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="{{ article.title }}">{{ article.title | capitalize }}</a>
+                                    <a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="{{ article.title }}">{{ article.title }}</a>
                                     {% if is_granted('ROLE_ADMIN') %}
                                     <small>
                                         <span class="article-title-edit" data-url="{{ path('article_edit_title', {
