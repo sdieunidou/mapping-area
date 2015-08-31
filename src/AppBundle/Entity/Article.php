@@ -373,12 +373,6 @@ class Article
             }
         }
 
-        if (empty($picture)) {
-            if ($this->getAuthor()->getAvatar()) {
-                $picture = $this->getAuthor()->getAvatar();
-            }
-        }
-
         return $picture;
     }
 }
