@@ -55,7 +55,7 @@ class Article
 
     /**
      * @var Author
-     /**
+     * 
      * @ORM\ManyToOne(targetEntity="Author")
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      */
@@ -63,7 +63,7 @@ class Article
 
     /**
      * @var Author
-     /**
+     * 
      * @ORM\ManyToOne(targetEntity="Category")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
