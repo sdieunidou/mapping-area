@@ -32,7 +32,7 @@ class Category
 
     /**
      * @var Engine
-     /**
+     * 
      * @ORM\ManyToOne(targetEntity="Engine")
      * @ORM\JoinColumn(name="engine_id", referencedColumnName="id")
      */
