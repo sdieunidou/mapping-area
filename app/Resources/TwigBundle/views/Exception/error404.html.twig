@@ -1,5 +1,12 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-
+  <div class="row">
+    <div class="col-md-12">
+      <p>La page que vous avez demandé n'est plus disponible.</p>
+      <div class="text-center">
+        <a class="btn btn-primary btn-lg" href="{{ path('homepage') }}">Revenir à la page d'accueil</a>
+      </div>
+    </div>
+  </div>
 {% endblock %} 
