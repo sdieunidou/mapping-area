@@ -27,6 +27,7 @@
                             {% endif %}
                                 <h2 class="page-header" style="font-size: 20px;">
                                     <a href="{{ path('article_show', {'slug': article.slug, 'engineSlug': article.engineSlug}) }}" title="{{ article.title }}">{{ article.title }}</a>
+                                    <small>par {{ article.author.name }}</small>
                                     {% if is_granted('ROLE_ADMIN') %}
                                     <small>
                                         <span class="article-title-edit" data-url="{{ path('article_edit_title', {
